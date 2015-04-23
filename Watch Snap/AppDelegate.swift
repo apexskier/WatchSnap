@@ -44,19 +44,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: (([NSObject : AnyObject]!) -> Void)!) {
+        if application.applicationState != .Active {
+            reply(["error": "notactive"])
+            return
+        }
         if let requestType = userInfo?["type"] as? String {
+            // set up a one time wait for the viewcontroller to notify with the image data
             var observer: NSObjectProtocol? = nil
             observer = NSNotificationCenter.defaultCenter().addObserverForName("imageData", object: nil, queue: nil, usingBlock: { (notification: NSNotification!) in
-                let fulldata = notification.object as! NSData
+                if let fulldata = notification.object as? NSData {
+                    let size = CGSize(width: 312, height: 390)
+                    let fullimage = UIImage(data: fulldata)
+                    UIGraphicsBeginImageContext(size)
+                    fullimage?.drawInRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                    let newimage = UIGraphicsGetImageFromCurrentImageContext()
+                    UIGraphicsEndImageContext()
 
-                let size = CGSize(width: 312, height: 390)
-                let fullimage = UIImage(data: fulldata)
-                UIGraphicsBeginImageContext(size)
-                fullimage?.drawInRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                let newimage = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-
-                reply(["image": UIImageJPEGRepresentation(newimage, 90)])
+                    reply(["image": UIImageJPEGRepresentation(newimage, 90)])
+                } else {
+                    reply(["error": "failed"])
+                }
                 NSNotificationCenter.defaultCenter().removeObserver(observer!)
             })
 
@@ -66,14 +73,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             case "ImageUpdate":
                 view.getImageData()
             case "TakePhoto":
-                if let delay = userInfo?["delay"] as? Int {
-                    view.takePhoto(delay)
-                }
+                view.takePhoto()
             default:
-                println("Error")
+                fatalError("Unknown request type")
             }
         } else {
-            println("error")
+            fatalError("No request type")
         }
     }
 }

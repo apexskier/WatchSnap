@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     private var imageOutput: AVCaptureStillImageOutput?
 
     func die(error: NSError?) {
-        var message = "A fatal error happened.\n\(error?.usefulDescription)"
+        var message = "Error: \(error?.usefulDescription)"
         alertError(message) {}
     }
 
@@ -116,47 +116,44 @@ class ViewController: UIViewController {
     }
 
     func getImageData() {
-        let image = UIImage(named: "testimage.png")
-        NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: UIImagePNGRepresentation(image))
-        /*
-        let connection = self.imageOutput!.connectionWithMediaType(AVMediaTypeVideo)
-        imageOutput!.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
-            self.cameraSession?.stopRunning()
-            if error != nil {
-                self.die(error)
-            } else {
-                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+        captureImage { (imageData: NSData) -> Void in
+            NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: imageData)
+        }
+    }
+
+    func takePhoto() {
+            cameraSession?.sessionPreset = AVCaptureSessionPresetPhoto
+        captureImage { (imageData: NSData) -> Void in
+            if let image = UIImage(data: imageData) {
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
                 NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: imageData)
+            } else {
+                NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: nil)
             }
-            self.cameraSession?.startRunning()
-        })*/
+        }
+    }
+
+    func captureImage(handler: ((NSData) -> Void)) {
+        if let connection = self.imageOutput?.connectionWithMediaType(AVMediaTypeVideo) {
+            imageOutput?.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
+                self.cameraSession?.stopRunning()
+                if error != nil {
+                    self.die(error)
+                } else {
+                    let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+                    handler(imageData)
+                }
+                self.cameraSession?.sessionPreset = AVCaptureSessionPresetHigh
+                self.cameraSession?.startRunning()
+            })
+        } else {
+            NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    func takePhoto(delay: Int) {
-        sleep(UInt32(delay * 1000))
-        let connection = self.imageOutput!.connectionWithMediaType(AVMediaTypeVideo)
-        imageOutput!.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
-            self.cameraSession?.stopRunning()
-            if error != nil {
-                self.die(error)
-            } else {
-                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-                if let image = UIImage(data: imageData) {
-                    // cool! save to library
-                    let notification = UILocalNotification()
-                    notification.alertTitle = "Captured Photo"
-                    notification.alertBody = "TODO: What should I put here?"
-                    notification.userInfo = ["IMAGE": "TESTING"]
-                    UIApplication.sharedApplication().scheduleLocalNotification(notification)
-                }
-            }
-            self.cameraSession?.startRunning()
-        })
     }
 }
 
