@@ -83,7 +83,6 @@
 		C51A1AD31AE883C1006D68E5 /* Watch Snap WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Watch Snap WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C51A1AD91AE883C1006D68E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C51A1ADB1AE883C1006D68E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		C51A1AE91AE88A5A006D68E5 /* Watch Snap WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Watch Snap WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		C51A1AEA1AE88AED006D68E5 /* Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		C51A1AED1AE88F49006D68E5 /* testimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testimage.png; sourceTree = "<group>"; };
 		C51A1AEF1AE8BAC4006D68E5 /* DisplayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
@@ -118,6 +117,8 @@
 			isa = PBXGroup;
 			children = (
 				C51A1AEA1AE88AED006D68E5 /* Shared.swift */,
+				C51A1AED1AE88F49006D68E5 /* testimage.png */,
+				C51A1AA91AE87ADA006D68E5 /* Images.xcassets */,
 				C51A1A9F1AE87ADA006D68E5 /* Watch Snap */,
 				C51A1AB51AE87ADA006D68E5 /* Watch SnapTests */,
 				C51A1AC71AE883C1006D68E5 /* Watch Snap WatchKit Extension */,
@@ -143,7 +144,6 @@
 				C51A1AA21AE87ADA006D68E5 /* AppDelegate.swift */,
 				C51A1AA41AE87ADA006D68E5 /* ViewController.swift */,
 				C51A1AA61AE87ADA006D68E5 /* Main.storyboard */,
-				C51A1AA91AE87ADA006D68E5 /* Images.xcassets */,
 				C51A1AAB1AE87ADA006D68E5 /* LaunchScreen.xib */,
 				C51A1AA01AE87ADA006D68E5 /* Supporting Files */,
 			);
@@ -153,7 +153,6 @@
 		C51A1AA01AE87ADA006D68E5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C51A1AED1AE88F49006D68E5 /* testimage.png */,
 				C51A1AA11AE87ADA006D68E5 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -179,7 +178,6 @@
 		C51A1AC71AE883C1006D68E5 /* Watch Snap WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				C51A1AE91AE88A5A006D68E5 /* Watch Snap WatchKit Extension.entitlements */,
 				C51A1ACB1AE883C1006D68E5 /* PreviewController.swift */,
 				C51A1AEF1AE8BAC4006D68E5 /* DisplayController.swift */,
 				C51A1ACD1AE883C1006D68E5 /* NotificationController.swift */,
