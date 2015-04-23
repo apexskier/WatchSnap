@@ -44,3 +44,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension NSError {
+    var usefulDescription: String {
+        if let m = self.localizedFailureReason {
+            return m
+        } else if self.localizedDescription != "" {
+            return self.localizedDescription
+        }
+        return self.domain
+    }
+}
