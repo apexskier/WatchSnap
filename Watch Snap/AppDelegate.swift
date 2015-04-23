@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+
+        //application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert, categories: nil))
         return true
     }
 
@@ -41,16 +43,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: (([NSObject : AnyObject]!) -> Void)!) {
+        if let requestType = userInfo?["type"] as? String {
+            var observer: NSObjectProtocol? = nil
+            observer = NSNotificationCenter.defaultCenter().addObserverForName("imageData", object: nil, queue: nil, usingBlock: { (notification: NSNotification!) in
+                let fulldata = notification.object as! NSData
 
-}
+                let size = CGSize(width: 312, height: 390)
+                let fullimage = UIImage(data: fulldata)
+                UIGraphicsBeginImageContext(size)
+                fullimage?.drawInRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                let newimage = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
 
-extension NSError {
-    var usefulDescription: String {
-        if let m = self.localizedFailureReason {
-            return m
-        } else if self.localizedDescription != "" {
-            return self.localizedDescription
+                reply(["image": UIImageJPEGRepresentation(newimage, 90)])
+                NSNotificationCenter.defaultCenter().removeObserver(observer!)
+            })
+
+            let view = window?.rootViewController as! ViewController
+
+            switch requestType {
+            case "ImageUpdate":
+                view.getImageData()
+            case "TakePhoto":
+                if let delay = userInfo?["delay"] as? Int {
+                    view.takePhoto(delay)
+                }
+            default:
+                println("Error")
+            }
+        } else {
+            println("error")
         }
-        return self.domain
     }
 }

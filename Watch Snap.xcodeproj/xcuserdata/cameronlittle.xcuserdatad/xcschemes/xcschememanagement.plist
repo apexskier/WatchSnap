@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Notification - Watch Snap WatchKit App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Watch Snap WatchKit App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>Watch Snap.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>C51A1AB11AE87ADA006D68E5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C51A1AD21AE883C1006D68E5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

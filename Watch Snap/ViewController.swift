@@ -51,6 +51,10 @@ class ViewController: UIViewController {
         setupPhotos()
     }
 
+    override func viewDidAppear(animated: Bool) {
+        
+    }
+
     func setupPhotos() {
         if PHPhotoLibrary.authorizationStatus() != .Authorized {
             PHPhotoLibrary.requestAuthorization() { (status: PHAuthorizationStatus) -> Void in
@@ -111,12 +115,30 @@ class ViewController: UIViewController {
         return NSError(domain: "Couldn't setup camera", code: 1, userInfo: nil)
     }
 
+    func getImageData() {
+        let image = UIImage(named: "testimage.png")
+        NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: UIImagePNGRepresentation(image))
+        /*
+        let connection = self.imageOutput!.connectionWithMediaType(AVMediaTypeVideo)
+        imageOutput!.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
+            self.cameraSession?.stopRunning()
+            if error != nil {
+                self.die(error)
+            } else {
+                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+                NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: imageData)
+            }
+            self.cameraSession?.startRunning()
+        })*/
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    func takePhoto() {
+    func takePhoto(delay: Int) {
+        sleep(UInt32(delay * 1000))
         let connection = self.imageOutput!.connectionWithMediaType(AVMediaTypeVideo)
         imageOutput!.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
             self.cameraSession?.stopRunning()
@@ -126,6 +148,11 @@ class ViewController: UIViewController {
                 let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
                 if let image = UIImage(data: imageData) {
                     // cool! save to library
+                    let notification = UILocalNotification()
+                    notification.alertTitle = "Captured Photo"
+                    notification.alertBody = "TODO: What should I put here?"
+                    notification.userInfo = ["IMAGE": "TESTING"]
+                    UIApplication.sharedApplication().scheduleLocalNotification(notification)
                 }
             }
             self.cameraSession?.startRunning()
