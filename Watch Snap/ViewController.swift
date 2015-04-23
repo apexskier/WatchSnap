@@ -159,14 +159,14 @@ class ViewController: UIViewController {
                 if error != nil {
                     self.die(error)
                 } else {
-                    let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-                    handler(imageData)
+                    handler(AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer))
                 }
                 self.cameraSession?.startRunning()
             })
         } else {
-            //DEBUG:    NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: nil)
-            handler(NSData())
+            //DEBUG: 
+            handler(UIImageJPEGRepresentation(UIImage(named: "testimage.png")!, 90))
+            //handler(NSData())
         }
     }
 

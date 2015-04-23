@@ -49,9 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         if let requestType = userInfo?["type"] as? String {
-            var watchWidth = userInfo?["width"] as? CGFloat
-            if watchWidth == nil {
-                watchWidth = 300
+            var watchWidth: CGFloat = 300
+            if let w = userInfo?["width"] as? CGFloat {
+                if w > 0 {
+                    watchWidth = w
+                }
             }
 
             // set up a one time wait for the viewcontroller to notify with the image data
@@ -59,7 +61,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             observer = NSNotificationCenter.defaultCenter().addObserverForName("imageData", object: nil, queue: nil, usingBlock: { (notification: NSNotification!) in
                 if let fulldata = notification.object as? NSData {
                     if let fullimage = UIImage(data: fulldata) {
-                        reply(["image": UIImageJPEGRepresentation(squareImageToSize(fullimage, watchWidth!), 90)])
+                        var sentimage = squareImageToSize(fullimage, watchWidth)
+                        switch UIDevice.currentDevice().orientation {
+                        case .LandscapeLeft:
+                            sentimage = sentimage.imageRotatedByRadians(CGFloat(M_PI / 2))
+                        case .LandscapeRight:
+                            sentimage = sentimage.imageRotatedByRadians(CGFloat(-M_PI / 2))
+                        default:
+                            break
+                        }
+                        reply([
+                            "image": UIImageJPEGRepresentation(sentimage, 90)
+                        ])
                     } else {
                         reply(["error": "failed"])
                     }
@@ -120,4 +133,38 @@ func squareImageToSize(image: UIImage, newSize: CGFloat) -> UIImage {
     UIGraphicsEndImageContext()
 
     return newImage
+}
+
+extension UIImage {
+    public func imageRotatedByRadians(radians: CGFloat) -> UIImage {
+        // calculate the size of the rotated view's containing box for our drawing space
+        let rotatedViewBox = UIView(frame: CGRect(origin: CGPointZero, size: size))
+        let t = CGAffineTransformMakeRotation(radians);
+        rotatedViewBox.transform = t
+        let rotatedSize = rotatedViewBox.frame.size
+
+        // Create the bitmap context
+        if UIScreen.mainScreen().respondsToSelector("scale") {
+            UIGraphicsBeginImageContextWithOptions(rotatedSize, true, 0)
+        } else {
+            // NOTE: This one will be faster, since it's less data.
+            UIGraphicsBeginImageContext(rotatedSize)
+        }
+        let bitmap = UIGraphicsGetCurrentContext()
+
+        // Move the origin to the middle of the image so we will rotate and scale around the center.
+        CGContextTranslateCTM(bitmap, rotatedSize.width / 2.0, rotatedSize.height / 2.0);
+
+        //   // Rotate the image context
+        CGContextRotateCTM(bitmap, radians);
+
+        // Now, draw the rotated/scaled image into the context
+        CGContextScaleCTM(bitmap, 1.0, -1.0)
+        CGContextDrawImage(bitmap, CGRectMake(-size.width / 2, -size.height / 2, size.width, size.height), CGImage)
+
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage
+    }
 }
