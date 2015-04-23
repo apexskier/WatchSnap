@@ -83,13 +83,6 @@ class ViewController: UIViewController {
 
         // input device
         if let camera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) {
-            // set camera configuration
-            /*camera.lockForConfiguration(&error)
-            if error != nil {
-            self.die(error)
-            }
-            camera.unlockForConfiguration()*/
-
             cameraInput = AVCaptureDeviceInput.deviceInputWithDevice(camera, error: &error) as? AVCaptureDeviceInput
             if error != nil {
                 return error
@@ -127,6 +120,7 @@ class ViewController: UIViewController {
     }
 
     func takePhoto() {
+        // http://stackoverflow.com/questions/6313359/avcaptureoutput-takes-dark-picture-even-with-flash-on
         //cameraSession?.sessionPreset = AVCaptureSessionPresetPhoto
         let orientation: ALAssetOrientation = { () -> ALAssetOrientation in
             switch UIDevice.currentDevice().orientation {
@@ -138,6 +132,9 @@ class ViewController: UIViewController {
                 return .Right
             }
         }()
+        let camera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        // wait for camera to be ready somehow
+        //wait while (camera.adjustingExposure || camera.adjustingWhiteBalance) {}
         captureImage { (imageData: NSData) -> Void in
             if let image = UIImage(data: imageData) {
                 let library = ALAssetsLibrary()
@@ -152,12 +149,10 @@ class ViewController: UIViewController {
                 NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: nil)
             }
             //self.cameraSession?.sessionPreset = AVCaptureSessionPresetHigh
-            //self.cameraPreviewLayer?.connection.videoOrientation = .Portrait
         }
     }
 
     func captureImage(handler: ((NSData) -> Void)) {
-        let camera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         if let connection = self.imageOutput?.connectionWithMediaType(AVMediaTypeVideo) {
             imageOutput?.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
                 self.cameraSession?.stopRunning()
@@ -170,7 +165,7 @@ class ViewController: UIViewController {
                 self.cameraSession?.startRunning()
             })
         } else {
-            //NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: nil)
+            //DEBUG:    NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: nil)
             handler(NSData())
         }
     }
