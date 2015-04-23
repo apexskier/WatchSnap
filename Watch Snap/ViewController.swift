@@ -35,6 +35,7 @@ class ViewController: UIViewController {
     private var cameraSession: AVCaptureSession?
     private var cameraInput: AVCaptureDeviceInput?
     private var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
+    private var cameraPreviewWrapper: UIView?
     private var imageOutput: AVCaptureStillImageOutput?
 
     func die(error: NSError?) {
@@ -100,9 +101,12 @@ class ViewController: UIViewController {
 
             // set visual camera preview up
             cameraPreviewLayer = AVCaptureVideoPreviewLayer.layerWithSession(self.cameraSession) as? AVCaptureVideoPreviewLayer
-            cameraPreviewLayer!.frame = self.mainView.bounds
-            cameraPreviewLayer!.connection.videoScaleAndCropFactor = 1
-            self.mainView.layer.insertSublayer(cameraPreviewLayer!, atIndex: 0)
+            //cameraPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+            cameraPreviewWrapper = UIView()
+            cameraPreviewWrapper?.frame = mainView.bounds
+            cameraPreviewLayer?.frame = cameraPreviewWrapper!.bounds
+            cameraPreviewWrapper?.layer.addSublayer(cameraPreviewLayer!)
+            mainView.insertSubview(cameraPreviewWrapper!, atIndex: 0)
 
             // get connection to capture pictures from
             imageOutput = AVCaptureStillImageOutput()
@@ -156,5 +160,17 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-}
 
+    override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        switch toInterfaceOrientation {
+        case .LandscapeRight:
+            cameraPreviewWrapper?.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI/2))
+        case .LandscapeLeft:
+            cameraPreviewWrapper?.transform = CGAffineTransformMakeRotation(CGFloat(M_PI/2))
+        default:
+            cameraPreviewWrapper?.transform = CGAffineTransformMakeRotation(0)
+        }
+        cameraPreviewWrapper?.frame = mainView.bounds
+    }
+
+}
