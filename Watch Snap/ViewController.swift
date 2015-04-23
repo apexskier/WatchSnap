@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Photos
+import AssetsLibrary
 
 extension UIViewController {
     func alertError(message: String, handler: (() -> Void)) {
@@ -78,7 +79,7 @@ class ViewController: UIViewController {
 
         // Camera capture session
         cameraSession = AVCaptureSession()
-        //cameraSession!.sessionPreset = AVCaptureSessionPresetPhoto
+        cameraSession!.sessionPreset = AVCaptureSessionPresetPhoto
 
         // input device
         if let camera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) {
@@ -94,14 +95,14 @@ class ViewController: UIViewController {
                 return error
             }
 
-            if !self.cameraSession!.canAddInput(cameraInput) {
+            if !cameraSession!.canAddInput(cameraInput) {
                 return NSError(domain: "Can't add camera input", code: 1, userInfo: nil)
             }
-            self.cameraSession!.addInput(cameraInput)
+            cameraSession!.addInput(cameraInput)
 
             // set visual camera preview up
-            cameraPreviewLayer = AVCaptureVideoPreviewLayer.layerWithSession(self.cameraSession) as? AVCaptureVideoPreviewLayer
-            //cameraPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+            cameraPreviewLayer = AVCaptureVideoPreviewLayer.layerWithSession(cameraSession) as? AVCaptureVideoPreviewLayer
+            cameraPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
             cameraPreviewWrapper = UIView()
             cameraPreviewWrapper?.frame = mainView.bounds
             cameraPreviewLayer?.frame = cameraPreviewWrapper!.bounds
@@ -126,18 +127,37 @@ class ViewController: UIViewController {
     }
 
     func takePhoto() {
-            cameraSession?.sessionPreset = AVCaptureSessionPresetPhoto
+        //cameraSession?.sessionPreset = AVCaptureSessionPresetPhoto
+        let orientation: ALAssetOrientation = { () -> ALAssetOrientation in
+            switch UIDevice.currentDevice().orientation {
+            case .LandscapeLeft:
+                return .Up
+            case .LandscapeRight:
+                return .Down
+            default:
+                return .Right
+            }
+        }()
         captureImage { (imageData: NSData) -> Void in
             if let image = UIImage(data: imageData) {
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: imageData)
+                let library = ALAssetsLibrary()
+                library.writeImageToSavedPhotosAlbum(image.CGImage, orientation: orientation, completionBlock: { (url: NSURL!, error: NSError!) -> Void in
+                    if error != nil {
+                        NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: imageData)
+                    } else {
+                        NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: nil)
+                    }
+                })
             } else {
                 NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: nil)
             }
+            //self.cameraSession?.sessionPreset = AVCaptureSessionPresetHigh
+            //self.cameraPreviewLayer?.connection.videoOrientation = .Portrait
         }
     }
 
     func captureImage(handler: ((NSData) -> Void)) {
+        let camera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         if let connection = self.imageOutput?.connectionWithMediaType(AVMediaTypeVideo) {
             imageOutput?.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
                 self.cameraSession?.stopRunning()
@@ -147,7 +167,6 @@ class ViewController: UIViewController {
                     let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
                     handler(imageData)
                 }
-                self.cameraSession?.sessionPreset = AVCaptureSessionPresetHigh
                 self.cameraSession?.startRunning()
             })
         } else {
@@ -171,6 +190,10 @@ class ViewController: UIViewController {
             cameraPreviewWrapper?.transform = CGAffineTransformMakeRotation(0)
         }
         cameraPreviewWrapper?.frame = mainView.bounds
+    }
+
+    @IBAction func tap(sender: AnyObject) {
+        takePhoto()
     }
 
 }

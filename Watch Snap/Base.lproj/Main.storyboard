@@ -25,18 +25,27 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="c5i-L2-0r2" secondAttribute="centerY" id="Vfd-El-9oR"/>
                             <constraint firstAttribute="centerX" secondItem="c5i-L2-0r2" secondAttribute="centerX" id="Vic-DE-ZcK"/>
                             <constraint firstItem="c5i-L2-0r2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="8" id="aLU-69-JNl"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="c5i-L2-0r2" secondAttribute="trailing" constant="8" id="g1X-if-Alb"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="8qh-S0-zvF" appends="YES" id="Csj-eB-QDO"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="mainView" destination="kh9-bI-dsS" id="TtC-MH-QvT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="8qh-S0-zvF">
+                    <connections>
+                        <action selector="tap:" destination="vXZ-lx-hvc" id="hdm-X5-Nc3"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
         </scene>
     </scenes>
