@@ -36,7 +36,7 @@ class PreviewController: WKInterfaceController {
         }
     }
 
-    var timer: NSTimer?
+    var updateLoop: NSTimer?
 
     func delaySnapPhoto(delay: NSTimeInterval) {
         let target = NSDate().dateByAddingTimeInterval(delay)
@@ -46,7 +46,7 @@ class PreviewController: WKInterfaceController {
         NSRunLoop.currentRunLoop().addTimer(NSTimer(fireDate: target, interval: 0, target: self, selector: "snapPhoto", userInfo: nil, repeats: false), forMode: NSDefaultRunLoopMode)
     }
     func snapPhoto() {
-        self.timer?.invalidate()
+        self.updateLoop?.invalidate()
         let now = NSDate()
         let request: [NSObject: AnyObject] = [
             "type": "TakePhoto"
@@ -135,15 +135,15 @@ class PreviewController: WKInterfaceController {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
 
-        timer = NSTimer(timeInterval: 1, target: self, selector: "updateImage", userInfo: nil, repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(timer!, forMode: NSDefaultRunLoopMode)
+        updateLoop = NSTimer(timeInterval: 1, target: self, selector: "updateImage", userInfo: nil, repeats: true)
+        NSRunLoop.currentRunLoop().addTimer(updateLoop!, forMode: NSDefaultRunLoopMode)
     }
 
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
 
-        timer?.invalidate()
+        updateLoop?.invalidate()
     }
 
 }

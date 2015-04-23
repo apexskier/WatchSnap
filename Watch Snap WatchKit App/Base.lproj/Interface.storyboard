@@ -32,8 +32,10 @@
                     <menu key="menu" id="cOf-lg-0oD">
                         <items>
                             <menuItem title="10s Delay" image="10SecTimer" id="zgL-Zc-DpQ">
+                                <variation key="device=watch38mm" image="10SecTimer"/>
+                                <variation key="device=watch42mm" image="10SecTimer"/>
                                 <connections>
-                                    <action selector="snap10SecDelay" destination="AgC-eL-Hgc" id="0iF-0y-afU"/>
+                                    <action selector="snap10SecDelay" destination="AgC-eL-Hgc" id="jj8-tj-H7z"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="2s Delay" image="2SecTimer" id="XQZ-cD-BuG">
