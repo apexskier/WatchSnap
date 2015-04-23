@@ -17,6 +17,7 @@ class PreviewController: WKInterfaceController {
     @IBOutlet weak var label: WKInterfaceLabel!
 
     var ready = false
+    var width: CGFloat = 0
 
     @IBAction func imageTap() {
         if ready {
@@ -49,7 +50,8 @@ class PreviewController: WKInterfaceController {
         self.updateLoop?.invalidate()
         let now = NSDate()
         let request: [NSObject: AnyObject] = [
-            "type": "TakePhoto"
+            "type": "TakePhoto",
+            "width": width
         ]
         if !WKInterfaceController.openParentApplication(request, reply: { (response: [NSObject : AnyObject]!, error: NSError!) -> Void in
             if error != nil || response == nil {
@@ -67,7 +69,10 @@ class PreviewController: WKInterfaceController {
     }
 
     func updateImage() {
-        let request: [NSObject: AnyObject] = ["type": "ImageUpdate"]
+        let request: [NSObject: AnyObject] = [
+            "type": "ImageUpdate",
+            "width": width
+        ]
         if !WKInterfaceController.openParentApplication(request, reply: { (response: [NSObject : AnyObject]!, error: NSError!) -> Void in
             if error != nil || response == nil {
                 println(error.usefulDescription)
@@ -129,6 +134,8 @@ class PreviewController: WKInterfaceController {
         // Configure interface objects here.
         updateImage()
         timerElement.setHidden(true)
+        width = WKInterfaceDevice.currentDevice().screenBounds.width
+        image.setHeight(width)
     }
 
     override func willActivate() {

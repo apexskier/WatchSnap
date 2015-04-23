@@ -20,7 +20,7 @@
                         <button alignment="left" id="dGJ-ZP-YvL">
                             <group key="contentGroup" width="1" alignment="left" spacing="0.0" id="YHa-ss-OkO">
                                 <items>
-                                    <imageView width="1" height="1" alignment="center" verticalAlignment="center" contentMode="scaleAspectFill" id="bfn-a8-Nze"/>
+                                    <imageView width="1" height="100" alignment="center" verticalAlignment="center" id="bfn-a8-Nze"/>
                                 </items>
                                 <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                             </group>
@@ -59,7 +59,7 @@
             <objects>
                 <controller identifier="Display" id="gJc-1D-Sv8" customClass="DisplayController" customModule="Watch_Snap_WatchKit_Extension">
                     <items>
-                        <imageView width="1" alignment="left" contentMode="scaleAspectFill" id="d5c-8k-HTv"/>
+                        <imageView width="1" height="100" alignment="left" id="d5c-8k-HTv"/>
                         <button width="1" alignment="left" title="Back" id="OA6-oJ-qy1">
                             <connections>
                                 <action selector="backTap" destination="gJc-1D-Sv8" id="4LW-Zz-bSM"/>

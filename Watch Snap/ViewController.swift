@@ -129,7 +129,6 @@ class ViewController: UIViewController {
                 NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: imageData)
             } else {
                 NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: nil)
-                //NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: UIImageJPEGRepresentation(UIImage(named: "testimage.png"), 80))
             }
         }
     }
@@ -148,8 +147,8 @@ class ViewController: UIViewController {
                 self.cameraSession?.startRunning()
             })
         } else {
-            NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: nil)
-            //NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: UIImageJPEGRepresentation(UIImage(named: "testimage.png"), 80))
+            //NSNotificationCenter.defaultCenter().postNotificationName("imageData", object: nil)
+            handler(NSData())
         }
     }
 

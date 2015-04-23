@@ -49,18 +49,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         if let requestType = userInfo?["type"] as? String {
+            var watchWidth = userInfo?["width"] as? CGFloat
+            if watchWidth == nil {
+                watchWidth = 300
+            }
+
             // set up a one time wait for the viewcontroller to notify with the image data
             var observer: NSObjectProtocol? = nil
             observer = NSNotificationCenter.defaultCenter().addObserverForName("imageData", object: nil, queue: nil, usingBlock: { (notification: NSNotification!) in
                 if let fulldata = notification.object as? NSData {
-                    let size = CGSize(width: 312, height: 390)
-                    let fullimage = UIImage(data: fulldata)
-                    UIGraphicsBeginImageContext(size)
-                    fullimage?.drawInRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                    let newimage = UIGraphicsGetImageFromCurrentImageContext()
-                    UIGraphicsEndImageContext()
-
-                    reply(["image": UIImageJPEGRepresentation(newimage, 90)])
+                    if let fullimage = UIImage(data: fulldata) {
+                        reply(["image": UIImageJPEGRepresentation(squareImageToSize(fullimage, watchWidth!), 90)])
+                    } else {
+                        reply(["error": "failed"])
+                    }
                 } else {
                     reply(["error": "failed"])
                 }
@@ -81,4 +83,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             fatalError("No request type")
         }
     }
+}
+
+func squareImageToSize(image: UIImage, newSize: CGFloat) -> UIImage {
+    let squareSize = CGSize(width: newSize, height: newSize)
+
+    var ratio: CGFloat
+    var delta: CGFloat
+    var offset: CGPoint
+
+    //figure out if the picture is landscape or portrait, then
+    //calculate scale factor and offset
+    if (image.size.width > image.size.height) {
+        ratio = newSize / image.size.width;
+        delta = (ratio * image.size.width - ratio * image.size.height);
+        offset = CGPointMake(delta/2, 0);
+    } else {
+        ratio = newSize / image.size.height;
+        delta = (ratio * image.size.height - ratio * image.size.width);
+        offset = CGPointMake(0, delta/2);
+    }
+    let clipRect = CGRect(x: -offset.x, y: -offset.y,
+        width: (ratio * image.size.width) + delta,
+        height: (ratio * image.size.height) + delta)
+
+    if UIScreen.mainScreen().respondsToSelector("scale") {
+        UIGraphicsBeginImageContextWithOptions(squareSize, true, 0)
+    } else {
+        // NOTE: This one will be faster, since it's less data.
+        UIGraphicsBeginImageContext(squareSize)
+    }
+
+    UIRectClip(clipRect)
+    image.drawInRect(clipRect)
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+
+    return newImage
 }

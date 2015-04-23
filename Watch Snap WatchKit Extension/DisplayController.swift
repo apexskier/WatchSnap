@@ -24,6 +24,8 @@ class DisplayController: WKInterfaceController {
         if let imageData = context as? NSData {
             image.setImageData(imageData)
         }
+        let width = WKInterfaceDevice.currentDevice().screenBounds.width
+        image.setHeight(width)
     }
 
     override func willActivate() {
