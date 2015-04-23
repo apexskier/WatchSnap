@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		C51A1AA31AE87ADA006D68E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1AA21AE87ADA006D68E5 /* AppDelegate.swift */; };
 		C51A1AA51AE87ADA006D68E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1AA41AE87ADA006D68E5 /* ViewController.swift */; };
-		C51A1AA81AE87ADA006D68E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C51A1AA61AE87ADA006D68E5 /* Main.storyboard */; };
 		C51A1AAA1AE87ADA006D68E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C51A1AA91AE87ADA006D68E5 /* Images.xcassets */; };
-		C51A1AAD1AE87ADA006D68E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C51A1AAB1AE87ADA006D68E5 /* LaunchScreen.xib */; };
 		C51A1AB91AE87ADA006D68E5 /* Watch_SnapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1AB81AE87ADA006D68E5 /* Watch_SnapTests.swift */; };
 		C51A1ACC1AE883C1006D68E5 /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1ACB1AE883C1006D68E5 /* PreviewController.swift */; };
 		C51A1ACE1AE883C1006D68E5 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1ACD1AE883C1006D68E5 /* NotificationController.swift */; };
@@ -22,8 +20,9 @@
 		C51A1AEC1AE88AF8006D68E5 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1AEA1AE88AED006D68E5 /* Shared.swift */; };
 		C51A1AEE1AE88F49006D68E5 /* testimage.png in Resources */ = {isa = PBXBuildFile; fileRef = C51A1AED1AE88F49006D68E5 /* testimage.png */; };
 		C51A1AF01AE8BAC4006D68E5 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1AEF1AE8BAC4006D68E5 /* DisplayController.swift */; };
-		C5B1F9A01AE8D4D4007541B5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C51A1AA91AE87ADA006D68E5 /* Images.xcassets */; };
-		C5B1F9A11AE8DE52007541B5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C51A1AA91AE87ADA006D68E5 /* Images.xcassets */; };
+		C5D5A4831AE8ED83000C3F2A /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5E92EC11AE8EC7D007E9121 /* WatchImages.xcassets */; };
+		C5D5A4841AE8EDA9000C3F2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C51A1AA61AE87ADA006D68E5 /* Main.storyboard */; };
+		C5D5A4851AE8EDAC000C3F2A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C51A1AAB1AE87ADA006D68E5 /* LaunchScreen.xib */; };
 		C5E92EC21AE8EC7D007E9121 /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5E92EC11AE8EC7D007E9121 /* WatchImages.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -346,8 +345,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C51A1AA81AE87ADA006D68E5 /* Main.storyboard in Resources */,
-				C51A1AAD1AE87ADA006D68E5 /* LaunchScreen.xib in Resources */,
+				C5D5A4841AE8EDA9000C3F2A /* Main.storyboard in Resources */,
+				C5D5A4851AE8EDAC000C3F2A /* LaunchScreen.xib in Resources */,
 				C51A1AAA1AE87ADA006D68E5 /* Images.xcassets in Resources */,
 				C51A1AEE1AE88F49006D68E5 /* testimage.png in Resources */,
 			);
@@ -364,7 +363,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5B1F9A01AE8D4D4007541B5 /* Images.xcassets in Resources */,
+				C5D5A4831AE8ED83000C3F2A /* WatchImages.xcassets in Resources */,
 				C51A1AD41AE883C1006D68E5 /* Watch Snap WatchKit App.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,7 +374,6 @@
 			files = (
 				C5E92EC21AE8EC7D007E9121 /* WatchImages.xcassets in Resources */,
 				C51A1ADC1AE883C1006D68E5 /* Interface.storyboard in Resources */,
-				C5B1F9A11AE8DE52007541B5 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
