@@ -31,12 +31,12 @@
                     </items>
                     <menu key="menu" id="cOf-lg-0oD">
                         <items>
-                            <menuItem title="10 Sec Delay" icon="accept" id="zgL-Zc-DpQ">
+                            <menuItem title="10s Delay" image="10SecTimer" id="zgL-Zc-DpQ">
                                 <connections>
                                     <action selector="snap10SecDelay" destination="AgC-eL-Hgc" id="0iF-0y-afU"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="2 Sec Delay" icon="maybe" id="XQZ-cD-BuG">
+                            <menuItem title="2s Delay" image="2SecTimer" id="XQZ-cD-BuG">
                                 <connections>
                                     <action selector="snap2SecDelay" destination="AgC-eL-Hgc" id="ou9-Os-PMB"/>
                                 </connections>

@@ -16,18 +16,24 @@ class PreviewController: WKInterfaceController {
     @IBOutlet weak var image: WKInterfaceImage!
     @IBOutlet weak var label: WKInterfaceLabel!
 
+    var ready = false
+
     @IBAction func imageTap() {
-        snapPhoto()
+        if ready {
+            snapPhoto()
+        }
     }
     @IBOutlet weak var timerElement: WKInterfaceTimer!
 
-    var countDown = 0
-
     @IBAction func snap10SecDelay() {
-        delaySnapPhoto(10)
+        if ready {
+            delaySnapPhoto(10)
+        }
     }
     @IBAction func snap2SecDelay() {
-        delaySnapPhoto(2)
+        if ready {
+            delaySnapPhoto(2)
+        }
     }
 
     var timer: NSTimer?
@@ -90,23 +96,31 @@ class PreviewController: WKInterfaceController {
     func displayOpenApp() {
         label.setText("Please open Watch Snap on your iPhone")
         label.setHidden(false)
+        timerElement.setHidden(true)
+        ready = false
     }
 
     func displayError(message: String) {
         label.setText(message)
         label.setHidden(false)
         image.setHidden(true)
+        timerElement.setHidden(true)
+        ready = false
     }
 
     func displayError() {
         label.setText("Error")
         label.setHidden(false)
         image.setHidden(true)
+        timerElement.setHidden(true)
+        ready = false
     }
 
     func removeError() {
         label.setHidden(true)
         image.setHidden(false)
+        timerElement.setHidden(true)
+        ready = true
     }
 
     override func awakeWithContext(context: AnyObject?) {

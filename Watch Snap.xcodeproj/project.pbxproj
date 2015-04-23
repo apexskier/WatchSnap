@@ -15,15 +15,14 @@
 		C51A1AB91AE87ADA006D68E5 /* Watch_SnapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1AB81AE87ADA006D68E5 /* Watch_SnapTests.swift */; };
 		C51A1ACC1AE883C1006D68E5 /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1ACB1AE883C1006D68E5 /* PreviewController.swift */; };
 		C51A1ACE1AE883C1006D68E5 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1ACD1AE883C1006D68E5 /* NotificationController.swift */; };
-		C51A1AD01AE883C1006D68E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C51A1ACF1AE883C1006D68E5 /* Images.xcassets */; };
 		C51A1AD41AE883C1006D68E5 /* Watch Snap WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = C51A1AD31AE883C1006D68E5 /* Watch Snap WatchKit App.app */; };
 		C51A1ADC1AE883C1006D68E5 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C51A1ADA1AE883C1006D68E5 /* Interface.storyboard */; };
-		C51A1ADE1AE883C1006D68E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C51A1ADD1AE883C1006D68E5 /* Images.xcassets */; };
 		C51A1AE11AE883C1006D68E5 /* Watch Snap WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C51A1AC61AE883C1006D68E5 /* Watch Snap WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C51A1AEB1AE88AED006D68E5 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1AEA1AE88AED006D68E5 /* Shared.swift */; };
 		C51A1AEC1AE88AF8006D68E5 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1AEA1AE88AED006D68E5 /* Shared.swift */; };
 		C51A1AEE1AE88F49006D68E5 /* testimage.png in Resources */ = {isa = PBXBuildFile; fileRef = C51A1AED1AE88F49006D68E5 /* testimage.png */; };
 		C51A1AF01AE8BAC4006D68E5 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A1AEF1AE8BAC4006D68E5 /* DisplayController.swift */; };
+		C5B1F9A01AE8D4D4007541B5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C51A1AA91AE87ADA006D68E5 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,11 +79,9 @@
 		C51A1ACA1AE883C1006D68E5 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		C51A1ACB1AE883C1006D68E5 /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
 		C51A1ACD1AE883C1006D68E5 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		C51A1ACF1AE883C1006D68E5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C51A1AD31AE883C1006D68E5 /* Watch Snap WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Watch Snap WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C51A1AD91AE883C1006D68E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C51A1ADB1AE883C1006D68E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		C51A1ADD1AE883C1006D68E5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C51A1AE91AE88A5A006D68E5 /* Watch Snap WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Watch Snap WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		C51A1AEA1AE88AED006D68E5 /* Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		C51A1AED1AE88F49006D68E5 /* testimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testimage.png; sourceTree = "<group>"; };
@@ -185,7 +182,6 @@
 				C51A1ACB1AE883C1006D68E5 /* PreviewController.swift */,
 				C51A1AEF1AE8BAC4006D68E5 /* DisplayController.swift */,
 				C51A1ACD1AE883C1006D68E5 /* NotificationController.swift */,
-				C51A1ACF1AE883C1006D68E5 /* Images.xcassets */,
 				C51A1AC81AE883C1006D68E5 /* Supporting Files */,
 			);
 			path = "Watch Snap WatchKit Extension";
@@ -204,7 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				C51A1ADA1AE883C1006D68E5 /* Interface.storyboard */,
-				C51A1ADD1AE883C1006D68E5 /* Images.xcassets */,
 				C51A1AD81AE883C1006D68E5 /* Supporting Files */,
 			);
 			path = "Watch Snap WatchKit App";
@@ -318,6 +313,7 @@
 					};
 					C51A1AD21AE883C1006D68E5 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 6D9DLTQJSN;
 					};
 				};
 			};
@@ -365,7 +361,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C51A1AD01AE883C1006D68E5 /* Images.xcassets in Resources */,
+				C5B1F9A01AE8D4D4007541B5 /* Images.xcassets in Resources */,
 				C51A1AD41AE883C1006D68E5 /* Watch Snap WatchKit App.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,7 +371,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C51A1ADC1AE883C1006D68E5 /* Interface.storyboard in Resources */,
-				C51A1ADE1AE883C1006D68E5 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +593,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -616,6 +612,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				IBSC_MODULE = Watch_Snap_WatchKit_Extension;
 				INFOPLIST_FILE = "Watch Snap WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -677,6 +674,7 @@
 				C51A1ABE1AE87ADA006D68E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C51A1ABF1AE87ADA006D68E5 /* Build configuration list for PBXNativeTarget "Watch SnapTests" */ = {
 			isa = XCConfigurationList;
@@ -685,6 +683,7 @@
 				C51A1AC11AE87ADA006D68E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C51A1AE21AE883C1006D68E5 /* Build configuration list for PBXNativeTarget "Watch Snap WatchKit App" */ = {
 			isa = XCConfigurationList;
@@ -693,6 +692,7 @@
 				C51A1AE41AE883C1006D68E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C51A1AE51AE883C1006D68E5 /* Build configuration list for PBXNativeTarget "Watch Snap WatchKit Extension" */ = {
 			isa = XCConfigurationList;
@@ -701,6 +701,7 @@
 				C51A1AE71AE883C1006D68E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
