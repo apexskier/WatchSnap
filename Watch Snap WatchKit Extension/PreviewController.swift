@@ -57,14 +57,17 @@ class PreviewController: WKInterfaceController {
             if error != nil || response == nil {
                 println(error.usefulDescription)
                 self.displayOpenApp()
+                self.startUpdateLoop()
             } else if let imageData = response["image"] as? NSData {
                 self.pushControllerWithName("Display", context: imageData)
             } else {
                 println("no image data")
                 self.displayError()
+                self.startUpdateLoop()
             }
         }) {
             self.displayOpenApp()
+            startUpdateLoop()
         }
     }
 
@@ -142,6 +145,10 @@ class PreviewController: WKInterfaceController {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
 
+        startUpdateLoop()
+    }
+
+    func startUpdateLoop() {
         updateLoop = NSTimer(timeInterval: 1, target: self, selector: "updateImage", userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(updateLoop!, forMode: NSDefaultRunLoopMode)
     }
